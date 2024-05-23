@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load i18n %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans 'Genres and Books List' %}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Library</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">{% trans 'Logout' %}</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+    <div class="container mt-5">
+        <h1 class="mb-4">{% trans 'Genres and Books List' %}</h1>
+        {% for genre in genres %}
+            <div class="mb-4">
+                <h2>{{ genre.name }}</h2>
+                {% if genre.book_set.all %}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>{% trans 'Title' %}</th>
+                                <th>{% trans 'Author' %}</th>
+                                <th>{% trans 'Publication Date' %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for book in genre.book_set.all %}
+                                <tr>
+                                    <td>{{ book.title }}</td>
+                                    <td>{{ book.author }}</td>
+                                    <td>{{ book.publication_date }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>{% trans 'No books available for this genre.' %}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+<footer class="text-center py-3">
+  <p>&copy; 2024 Book Management Website</p>
+</footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% load i18n %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans 'Login - Library Website' %}</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+        :root {
+            --background-color: #ffffff;
+            --text-color: #000000;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        .password-group {
+            position: relative;
+        }
+
+        .password-toggle {
+            cursor: pointer;
+            padding: 5px;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">
+        Library
+    </a>
+
+    <div class="ml-auto">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'signup' %}">{% trans 'Create an Account' %}</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<section class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <h2>{% trans 'Login' %}</h2>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-warning" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <form class="form-signin" method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">{% trans 'Username' %}</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="form-group password-group">
+                    <label for="password">{% trans 'Password' %}</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">{% trans 'Login' %}</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<footer class="text-center py-3">
+    <p>&copy; 2024 Book Management Website</p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    const passwordInput = document.querySelector('#password');
+    const passwordToggle = document.querySelector('#passwordToggle');
+    const toggleImage = document.querySelector('#toggleImage');
+    let passwordVisible = false;
+
+</script>
+
+</body>
+</html>
